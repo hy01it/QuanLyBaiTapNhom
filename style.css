@@ -109,3 +109,121 @@ a:hover {
     font-size: 14px;
     line-height: 1.5;
 }
+
+
+
+/* Giao dien trang chu */
+.dashboard-body {
+    display: block;
+    padding: 0;
+    background: #eef3f9;
+}
+
+.dashboard-header {
+    background: white;
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-header h1 {
+    text-align: left;
+    margin: 0 0 8px;
+}
+
+.dashboard-header p {
+    margin: 0;
+}
+
+.dashboard-header button {
+    width: auto;
+    margin: 0;
+}
+
+.logout-button {
+    background: #d94343;
+}
+
+.logout-button:hover {
+    background: #b72d2d;
+}
+
+.dashboard-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.dashboard-card {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    min-width: 0;
+}
+
+.dashboard-card h2 {
+    text-align: left;
+    color: #2459a9;
+    margin-top: 0;
+}
+
+.dashboard-card button {
+    margin-top: 16px;
+}
+
+.inline-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.inline-form input {
+    min-width: 0;
+    flex: 1;
+}
+
+.inline-form button {
+    width: auto;
+    margin: 0;
+}
+
+.data-list {
+    padding-left: 22px;
+    overflow-wrap: anywhere;
+}
+
+.data-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #e5eaf0;
+}
+
+@media (max-width: 650px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-header {
+        padding: 18px;
+        flex-wrap: wrap;
+    }
+
+    .dashboard-header h1 {
+        font-size: 22px;
+    }
+
+    .inline-form {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .inline-form button {
+        width: 100%;
+    }
+}
