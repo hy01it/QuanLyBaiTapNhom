@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - Quản lý bài tập nhóm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+    <header class="dashboard-header">
+        <div>
+            <h1>Quản lý bài tập nhóm</h1>
+            <p>Xin chào, <strong id="userName">Sinh viên</strong>!</p>
+        </div>
+
+        <button class="logout-button" onclick="logout()">
+            Đăng xuất
+        </button>
+    </header>
+
+    <main class="dashboard-container">
+
+        <!-- Quan ly thanh vien -->
+        <section class="dashboard-card">
+            <h2>Thành viên nhóm</h2>
+
+            <form id="memberForm" class="inline-form">
+                <input type="text" id="memberName"
+                       placeholder="Nhập tên thành viên" required>
+
+                <button type="submit">Thêm thành viên</button>
+            </form>
+
+            <ul id="memberList" class="data-list"></ul>
+        </section>
+
+        <!-- Tao nhiem vu -->
+        <section class="dashboard-card">
+            <h2>Tạo nhiệm vụ</h2>
+
+            <form id="taskForm">
+                <label for="taskDueDate">Hạn nộp:</label>
+                <input type="date" id="taskDueDate">
+                <label for="taskName">Tên nhiệm vụ</label>
+                <input type="text" id="taskName"
+                       placeholder="Ví dụ: Làm slide thuyết trình" required>
+
+                <label for="taskMember">Người thực hiện</label>
+                <select id="taskMember" required>
+                    <option value="">-- Chọn thành viên --</option>
+                </select>
+
+                <button type="submit">Tạo nhiệm vụ</button>
+            </form>
+        </section>
+
+        <!-- Danh sach nhiem vu -->
+        <section class="dashboard-card">
+            <h2>Danh sách nhiệm vụ</h2>
+            
+            <h3>🔔 Thông báo hạn nộp</h3>
+            <div id="deadlineNotifications">
+                Chưa có thông báo.
+            </div>
+
+            <ul id="taskList" class="data-list"></ul>
+        </section>
+
+    </main>
+
+<script type="module" src="auth.js"></script>
+
+</body>
+</html>

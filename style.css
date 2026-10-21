@@ -1,0 +1,111 @@
+
+/* Cai dat chung cho trang */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef3f9;
+    color: #263445;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Khung dang nhap va dang ky */
+.auth-container {
+    background: white;
+    width: 100%;
+    max-width: 430px;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+    color: #2459a9;
+    text-align: center;
+    font-size: 26px;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.subtitle {
+    color: #68778a;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* O nhap du lieu */
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd5e0;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+input:focus {
+    outline: 2px solid #8db7f4;
+    border-color: #2459a9;
+}
+
+/* Nut bam */
+button {
+    width: 100%;
+    margin-top: 22px;
+    padding: 12px;
+    background: #2459a9;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #194580;
+}
+
+/* Chuyen doi dang nhap va dang ky */
+.switch-form {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+a {
+    color: #2459a9;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* An khu vuc chua can hien thi */
+.hidden {
+    display: none;
+}
+
+#message {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+}
