@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý bài tập nhóm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <h1>Quản lý bài tập nhóm</h1>
+
+        <!-- Form đăng nhập -->
+        <section id="loginSection">
+            <h2>Đăng nhập</h2>
+
+            <form id="loginForm">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail"
+                       placeholder="Nhập email" required>
+
+                <label for="loginPassword">Mật khẩu</label>
+                <input type="password" id="loginPassword"
+                       placeholder="Nhập mật khẩu" required>
+
+                <button type="submit">Đăng nhập</button>
+            </form>
+
+            <p class="switch-form">
+                Chưa có tài khoản?
+                <a href="#" id="showRegister">Đăng ký</a>
+            </p>
+        </section>
+
+        <!-- Form đăng ký -->
+        <section id="registerSection" class="hidden">
+            <h2>Tạo tài khoản</h2>
+
+            <form id="registerForm">
+                <label for="registerName">Họ và tên</label>
+                <input type="text" id="registerName"
+                       placeholder="Nhập họ tên" required>
+
+                <label for="registerEmail">Email</label>
+                <input type="email" id="registerEmail"
+                       placeholder="Nhập email" required>
+
+                <label for="registerPassword">Mật khẩu</label>
+                <input type="password" id="registerPassword"
+                       placeholder="Tạo mật khẩu (ít nhất 6 ký tự)"
+                       minlength="6" required>
+
+                <label for="confirmPassword">Xác nhận mật khẩu</label>
+                <input type="password" id="confirmPassword"
+                       placeholder="Nhập lại mật khẩu" required>
+
+                <button type="submit">Đăng ký</button>
+            </form>
+
+            <p class="switch-form">
+                Đã có tài khoản?
+                <a href="#" id="showLogin">Đăng nhập</a>
+            </p>
+        </section>
+
+        <p id="message" role="status"></p>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
 
