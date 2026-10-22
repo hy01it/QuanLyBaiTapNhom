@@ -567,6 +567,83 @@ taskList.appendChild(li);
 }
 
 
+/* Hien thi thong bao han nop */
+function displayDeadlineNotifications() {
+    const notificationBox = document.getElementById("deadlineNotifications");
+
+    if (!notificationBox) {
+        return;
+    }
+
+    // Xoa thong bao cu truoc khi hien thi lai
+    notificationBox.replaceChildren();
+
+    // Lay ngay hom nay theo gio may tinh
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Ngay gioi han thong bao: 3 ngay toi
+    const limitDate = new Date(today);
+    limitDate.setDate(limitDate.getDate() + 3);
+
+    // Chi thong bao nhiem vu chua hoan thanh va co han nop
+    const upcomingTasks = tasksCache
+        .filter(function (task) {
+            return !task.completed && task.dueDate;
+        })
+        .map(function (task) {
+            const parts = task.dueDate.split("-");
+
+            const dueDate = new Date(
+                Number(parts[0]),
+                Number(parts[1]) - 1,
+                Number(parts[2])
+            );
+
+            return {
+                ...task,
+                parsedDueDate: dueDate
+            };
+        })
+        .filter(function (task) {
+            return !Number.isNaN(task.parsedDueDate.getTime()) &&
+                task.parsedDueDate <= limitDate;
+        })
+        .sort(function (a, b) {
+            return a.parsedDueDate - b.parsedDueDate;
+        });
+
+    if (upcomingTasks.length === 0) {
+        notificationBox.textContent =
+            "Không có nhiệm vụ sắp đến hạn trong 3 ngày tới.";
+        return;
+    }
+
+    upcomingTasks.forEach(function (task) {
+        const item = document.createElement("p");
+
+        const dateText = task.parsedDueDate.toLocaleDateString("vi-VN");
+
+        let message = "";
+
+        if (task.parsedDueDate < today) {
+            message = "QUÁ HẠN";
+        } else if (task.parsedDueDate.getTime() === today.getTime()) {
+            message = "HẠN NỘP HÔM NAY";
+        } else {
+            message = "SẮP ĐẾN HẠN";
+        }
+
+        item.textContent =
+            message + ": " + task.name +
+            " - Người thực hiện: " + (task.memberName || "Chưa phân công") +
+            " - Hạn nộp: " + dateText;
+
+        notificationBox.appendChild(item);
+    });
+}
+
+
 /* Lang nghe thay doi du lieu truc tiep tu Firestore */
 if (document.getElementById("memberList")) {
     onSnapshot(
@@ -587,18 +664,21 @@ if (document.getElementById("memberList")) {
         }
     );
 
-    onSnapshot(
-        collection(db, "tasks"),
-        function (snapshot) {
-            tasksCache = snapshot.docs.map(function (doc) {
-                return {
-                    id: doc.id,
-                    ...doc.data()
-                };
-            });
+    
+        onSnapshot(
+            collection(db, "tasks"),
+            function (snapshot) {
+                tasksCache = snapshot.docs.map(function (doc) {
+                    return {
+                        id: doc.id,
+                        ...doc.data()
+                    };
+                });
 
-            displayTasks();
-        },
+                displayTasks();
+                displayDeadlineNotifications();
+            },
+
         function (error) {
             console.error("Loi doc danh sach nhiem vu:", error);
             alert("Khong doc duoc danh sach nhiem vu. Hay kiem tra Firestore.");
