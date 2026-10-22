@@ -227,3 +227,54 @@ a:hover {
         width: 100%;
     }
 }
+
+
+/* O chon thanh vien */
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd5e0;
+    border-radius: 7px;
+    background: white;
+    font-size: 15px;
+    color: #263445;
+}
+
+select:focus {
+    outline: 2px solid #8db7f4;
+    border-color: #2459a9;
+}
+
+/* Cac nut sua, xoa va cap nhat trang thai */
+.data-list li button {
+    width: auto;
+    margin: 10px 8px 0 0;
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+.data-list li {
+    overflow-wrap: anywhere;
+}
+
+/* Khu vuc thong bao han nop */
+#deadlineNotifications {
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    background: #f2f6fc;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+#deadlineNotifications p {
+    margin: 0 0 10px;
+    padding: 10px;
+    border-left: 4px solid #e49b27;
+    background: white;
+    border-radius: 4px;
+}
+
+#deadlineNotifications p:last-child {
+    margin-bottom: 0;
+}
