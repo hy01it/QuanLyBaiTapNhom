@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Quản lý bài tập nhóm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-body">
+
+    <!-- HEADER: LOGO, THONG TIN NHOM VA CAC TAB -->
+    <header class="dashboard-header main-dashboard-header">
+
+
+
+<div class="dashboard-brand">
+
+    <!-- Nút quay lại -->
+    <button
+        type="button"
+        class="back-groups-arrow"
+        onclick="window.location.href='groups.html'"
+        title="Quay lại danh sách nhóm"
+        aria-label="Quay lại danh sách nhóm">
+        ←
+    </button>
+
+    <!-- Dấu tích -->
+    <div class="dashboard-logo" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="32" height="32"
+            fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="40" height="40" rx="12"
+                fill="#DCEBFA"/>
+            <path d="M15 24L21 30L33 17"
+                stroke="#285B96" stroke-width="3.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+    <!-- Khung thông tin nhóm -->
+    <div class="dashboard-heading group-info-box">
+        <h1>Quản lý bài tập nhóm</h1>
+        <p>Xin chào, <strong id="userName">Sinh viên</strong>!</p>
+        <p id="currentGroupName" class="current-group-name">
+            Đang tải thông tin nhóm...
+        </p>
+    </div>
+
+</div>
+
+
+        <!-- CAC TAB DIEU HUONG -->
+        <nav class="dashboard-tabs dashboard-header-tabs"
+            role="tablist" aria-label="Quản lý nhóm">
+
+            <button type="button"
+                class="dashboard-tab active"
+                id="tabOverview"
+                data-tab="panelOverview"
+                role="tab"
+                aria-selected="true">
+                Tổng quan
+            </button>
+
+            <button type="button"
+                class="dashboard-tab"
+                id="tabTasks"
+                data-tab="panelTasks"
+                role="tab"
+                aria-selected="false">
+                Nhiệm vụ
+            </button>
+
+            <button type="button"
+                class="dashboard-tab"
+                id="tabDeadlines"
+                data-tab="panelDeadlines"
+                role="tab"
+                aria-selected="false">
+                Danh sách nhiệm vụ
+            </button>
+
+            <button type="button"
+                class="dashboard-tab leader-only-tab"
+                id="tabCreateTask"
+                data-tab="panelCreateTask"
+                role="tab"
+                aria-selected="false"
+                hidden>
+                + Tạo nhiệm vụ
+            </button>
+        </nav>
+
+        <!-- GIU CAC ID DE AUTH.JS TIEP TUC HOAT DONG -->
+        <div class="dashboard-header-tools">
+            <div hidden>
+                <select id="currentGroup">
+                    <option value="">-- Chọn nhóm --</option>
+                </select>
+
+                <button type="button" id="deleteGroupButton" hidden>
+                </button>
+            </div>
+
+            <p id="groupMessage" role="status"></p>
+        </div>
+
+    </header>
+
+    <!-- NOI DUNG CHINH -->
+    <main class="dashboard-container main-dashboard">
+
+        <section class="dashboard-card dashboard-tabs-card">
+
+            <!-- TONG QUAN -->
+            <section class="dashboard-tab-panel"
+                id="panelOverview"
+                role="tabpanel"
+                aria-labelledby="tabOverview">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="dashboard-eyebrow">TỔNG QUAN NHÓM</span>
+                        <h2>Tiến độ công việc</h2>
+                        <p>Theo dõi tình hình thực hiện nhiệm vụ của nhóm.</p>
+                    </div>
+                </div>
+
+                <div class="overview-grid">
+
+                    <!-- COT A: THONG KE -->
+                    <div class="overview-statistics">
+
+                        <div class="statistics-grid">
+
+                            <div class="statistic-item statistic-total">
+                                <span class="statistic-icon">▤</span>
+                                <p>Tổng nhiệm vụ</p>
+                                <strong id="totalTasks">0</strong>
+                            </div>
+
+                            <div class="statistic-item statistic-completed">
+                                <span class="statistic-icon">✓</span>
+                                <p>Đã hoàn thành</p>
+                                <strong id="completedTasks">0</strong>
+                            </div>
+
+                            <div class="statistic-item statistic-pending">
+                                <span class="statistic-icon">◷</span>
+                                <p>Đang thực hiện</p>
+                                <strong id="pendingTasks">0</strong>
+                            </div>
+
+                            <div class="statistic-item statistic-overdue">
+                                <span class="statistic-icon">!</span>
+                                <p>Đã quá hạn</p>
+                                <strong id="overdueTasks">0</strong>
+                            </div>
+
+                        </div>
+
+                        <div class="progress-section">
+                            <div class="progress-heading">
+                                <h3>Tiến độ hoàn thành</h3>
+                                <p id="progressText">0% hoàn thành</p>
+                            </div>
+
+                            <div class="progress-track">
+                                <div id="progressBar"
+                                    class="progress-bar"
+                                    style="width: 0%;">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- COT B: DANH SACH THANH VIEN -->
+                    <div class="overview-members dashboard-card">
+
+                        <div class="section-heading">
+                            <div class="section-icon member-section-icon">
+                                <span>👥</span>
+                            </div>
+                            <div>
+                                <h2>Danh sách thành viên</h2>
+                                <p>Các thành viên trong nhóm hiện tại.</p>
+                            </div>
+                        </div>
+
+                        <!-- CHI NHOM TRUONG DUOC HIEN -->
+                        <form id="memberForm" class="leader-only-form" hidden>
+                            <label for="memberAccount">
+                                Chọn tài khoản đã đăng ký
+                            </label>
+
+                            <select id="memberAccount" required>
+                                <option value="">-- Chọn tài khoản --</option>
+                            </select>
+
+                            <button type="submit">+ Thêm thành viên</button>
+                        </form>
+
+                        <div id="memberMessage" role="status"></div>
+                        <ul id="memberList"></ul>
+
+                        <!-- QUAN LY NHOM TRUONG -->
+                        <div class="leader-management"
+                            id="leaderManagement" hidden>
+
+                            <h3>Quản lý nhóm trưởng</h3>
+
+                            <label for="newLeaderSelect">
+                                Chuyển quyền nhóm trưởng cho thành viên
+                            </label>
+
+                            <select id="newLeaderSelect">
+                                <option value="">-- Chọn thành viên --</option>
+                            </select>
+
+                            <button type="button" id="transferLeaderButton">
+                                Chuyển quyền nhóm trưởng
+                            </button>
+
+                            <p id="leaderMessage" role="status"></p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- NHIEM VU -->
+            <section class="dashboard-tab-panel"
+                id="panelTasks"
+                role="tabpanel"
+                aria-labelledby="tabTasks"
+                hidden>
+
+                <div class="section-heading">
+                    <div class="section-icon task-list-section-icon">
+                        <span>📋</span>
+                    </div>
+                    <div>
+                        <h2>Nhiệm vụ</h2>
+                        <p>Xem nhiệm vụ và cập nhật tiến độ công việc.</p>
+                    </div>
+                </div>
+
+                <div id="taskList">Đang tải nhiệm vụ...</div>
+            </section>
+
+            <!-- DANH SACH TAT CA NHIEM VU -->
+            <section class="dashboard-tab-panel"
+                id="panelDeadlines"
+                role="tabpanel"
+                aria-labelledby="tabDeadlines"
+                hidden>
+
+                <div class="section-heading">
+                    <div class="section-icon task-list-section-icon">
+                        <span>🗂️</span>
+                    </div>
+                    <div>
+                        <h2>Danh sách nhiệm vụ</h2>
+                        <p>Theo dõi người thực hiện, hạn nộp và tiến độ.</p>
+                    </div>
+                </div>
+
+                <div id="allTaskList">
+                    Đang tải danh sách nhiệm vụ...
+                </div>
+
+                <div class="deadline-section">
+                    <h3>Thông báo hạn nộp</h3>
+                    <div id="deadlineNotifications">
+                        Chưa có thông báo.
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- TAO NHIEM VU: CHI NHOM TRUONG -->
+            <section class="dashboard-tab-panel"
+                id="panelCreateTask"
+                role="tabpanel"
+                aria-labelledby="tabCreateTask"
+                hidden>
+
+                <div class="section-heading">
+                    <div class="section-icon task-section-icon">
+                        <span>➕</span>
+                    </div>
+                    <div>
+                        <h2>Tạo nhiệm vụ</h2>
+                        <p>Phân công công việc và thiết lập hạn nộp.</p>
+                    </div>
+                </div>
+
+                <form id="taskForm">
+
+                    <label for="taskName">Tên nhiệm vụ</label>
+                    <input type="text"
+                        id="taskName"
+                        placeholder="Nhập tên nhiệm vụ"
+                        required>
+
+                    <label for="taskDueDate">Hạn nộp</label>
+                    <input type="date" id="taskDueDate">
+
+                    <label for="taskMember">
+                        Chỉ định người nhận (có thể để trống)
+                    </label>
+                    <select id="taskMember">
+                        <option value="">-- Chưa chỉ định người nhận --</option>
+                    </select>
+
+                    <label for="taskMaxPeople">
+                        Số người tối đa cùng làm
+                    </label>
+                    <input type="number"
+                        id="taskMaxPeople"
+                        min="1"
+                        max="100"
+                        value="1"
+                        required>
+
+                    <button type="submit">+ Tạo nhiệm vụ</button>
+
+                </form>
+            </section>
+
+        </section>
+
+        <footer class="dashboard-footer"></footer>
+
+    </main>
+
+    <script type="module" src="auth.js"></script>
+</body>
+</html>
