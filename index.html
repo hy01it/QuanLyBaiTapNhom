@@ -4,59 +4,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Quản lý bài tập nhóm</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="auth-container">
-        <h1>Quản lý bài tập nhóm</h1>
 
-        <!-- Form đăng nhập -->
-        <section id="loginSection">
-            <h2>Đăng nhập</h2>
+<body>
+    <main class="auth-container">
+
+        <!-- Phan gioi thieu -->
+        <div class="auth-brand">
+            <div class="auth-logo" aria-hidden="true">
+                <svg
+                    viewBox="0 0 48 48"
+                    width="36"
+                    height="36"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <rect
+                        x="5"
+                        y="5"
+                        width="38"
+                        height="38"
+                        rx="12"
+                        fill="#DCEBFA"
+                    />
+                    <path
+                        d="M15 24L21 30L33 17"
+                        stroke="#285B96"
+                        stroke-width="3.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </div>
+
+            <p class="auth-label">HỌC TẬP · KẾT NỐI</p>
+
+            <h1>Quản lý bài tập nhóm</h1>
+
+            <p class="subtitle">
+                Cùng nhau quản lý nhiệm vụ, theo dõi tiến độ
+                và hoàn thành mục tiêu của nhóm.
+            </p>
+        </div>
+
+        <!-- Form dang nhap -->
+        <section id="loginSection" class="auth-section">
+            <h2>Chào mừng bạn trở lại!</h2>
+
+            <p class="form-description">
+                Đăng nhập để tiếp tục công việc của nhóm.
+            </p>
 
             <form id="loginForm">
                 <label for="loginEmail">Email</label>
-                <input type="email" id="loginEmail"
-                       placeholder="Nhập email" required>
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Nhập email của bạn"
+                    autocomplete="email"
+                    required
+                >
 
                 <label for="loginPassword">Mật khẩu</label>
-                <input type="password" id="loginPassword"
-                       placeholder="Nhập mật khẩu" required>
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Nhập mật khẩu"
+                    autocomplete="current-password"
+                    required
+                >
 
                 <button type="submit">Đăng nhập</button>
             </form>
 
             <p class="switch-form">
                 Chưa có tài khoản?
-                <a href="#" id="showRegister">Đăng ký</a>
+                <a href="#" id="showRegister">Đăng ký ngay</a>
             </p>
         </section>
-        
 
-        <!-- Form đăng ký -->
-        <section id="registerSection" class="hidden">
-            <h2>Tạo tài khoản</h2>
+        <!-- Form dang ky -->
+        <section id="registerSection" class="hidden auth-section">
+            <h2>Tạo tài khoản mới</h2>
+
+            <p class="form-description">
+                Đăng ký để bắt đầu quản lý công việc nhóm.
+            </p>
 
             <form id="registerForm">
                 <label for="registerName">Họ và tên</label>
-                <input type="text" id="registerName"
-                       placeholder="Nhập họ tên" required>
+                <input
+                    type="text"
+                    id="registerName"
+                    placeholder="Nhập họ và tên"
+                    autocomplete="name"
+                    required
+                >
 
                 <label for="registerEmail">Email</label>
-                <input type="email" id="registerEmail"
-                       placeholder="Nhập email" required>
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="Nhập email của bạn"
+                    autocomplete="email"
+                    required
+                >
 
                 <label for="registerPassword">Mật khẩu</label>
-                <input type="password" id="registerPassword"
-                       placeholder="Tạo mật khẩu (ít nhất 6 ký tự)"
-                       minlength="6" required>
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Tạo mật khẩu (ít nhất 6 ký tự)"
+                    minlength="6"
+                    autocomplete="new-password"
+                    required
+                >
 
                 <label for="confirmPassword">Xác nhận mật khẩu</label>
-                <input type="password" id="confirmPassword"
-                       placeholder="Nhập lại mật khẩu" required>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Nhập lại mật khẩu"
+                    autocomplete="new-password"
+                    required
+                >
 
-                <button type="submit">Đăng ký</button>
+                <button type="submit">Tạo tài khoản</button>
             </form>
 
             <p class="switch-form">
@@ -65,9 +142,15 @@
             </p>
         </section>
 
-        <p id="message" role="status"></p>
-    </div>
+        <!-- Thong bao tu Firebase -->
+        <p id="message" role="status" aria-live="polite"></p>
 
-  <script type="module" src="auth.js"></script>
+        <footer class="auth-footer">
+            Quản lý công việc thông minh · Học tập cùng nhau
+        </footer>
+
+    </main>
+
+    <script type="module" src="auth.js"></script>
 </body>
 </html>
