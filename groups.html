@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhóm của tôi - Quản lý bài tập nhóm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-body groups-page-body">
+
+    <!-- Thanh tiêu đề -->
+    <header class="dashboard-header groups-header">
+        <div class="groups-brand">
+            <div class="groups-logo" aria-hidden="true">
+                <svg
+                    viewBox="0 0 48 48"
+                    width="32"
+                    height="32"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <rect
+                        x="4"
+                        y="4"
+                        width="40"
+                        height="40"
+                        rx="12"
+                        fill="#DCEBFA"
+                    />
+                    <path
+                        d="M17 24L22 29L32 18"
+                        stroke="#285B96"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </div>
+
+            <div>
+                <h1>Nhóm của tôi</h1>
+                <p>
+                    Xin chào,
+                    <strong id="groupsUserName">Sinh viên</strong>!
+                </p>
+            </div>
+        </div>
+
+        <button
+            type="button"
+            class="logout-button"
+            id="groupsLogout"
+        >
+            Đăng xuất
+        </button>
+    </header>
+
+    <!-- Nội dung chính -->
+    <main class="dashboard-container groups-page">
+
+        <!-- Phần giới thiệu -->
+        <section class="groups-welcome">
+            <div>
+                <span class="groups-eyebrow">KHÔNG GIAN HỌC TẬP</span>
+                <h2>Kết nối và học tập cùng nhau</h2>
+                <p>
+                    Tạo nhóm mới hoặc tham gia nhóm để cùng quản lý
+                    bài tập, phân chia nhiệm vụ và theo dõi tiến độ.
+                </p>
+            </div>
+
+            <div class="groups-welcome-icon" aria-hidden="true">
+                <svg
+                    viewBox="0 0 100 100"
+                    width="88"
+                    height="88"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <circle cx="50" cy="50" r="46" fill="#F9DCE8"/>
+                    <circle cx="50" cy="34" r="12" fill="#3975B9"/>
+                    <circle cx="27" cy="42" r="9" fill="#7BA9D9"/>
+                    <circle cx="73" cy="42" r="9" fill="#7BA9D9"/>
+                    <path
+                        d="M27 72C27 59 37 51 50 51C63 51 73 59 73 72"
+                        stroke="#285B96"
+                        stroke-width="8"
+                        stroke-linecap="round"
+                    />
+                    <path
+                        d="M10 70C10 60 17 54 27 54"
+                        stroke="#7BA9D9"
+                        stroke-width="6"
+                        stroke-linecap="round"
+                    />
+                    <path
+                        d="M90 70C90 60 83 54 73 54"
+                        stroke="#7BA9D9"
+                        stroke-width="6"
+                        stroke-linecap="round"
+                    />
+                </svg>
+            </div>
+        </section>
+
+        <!-- Hai chức năng tạo và tham gia nhóm -->
+        <div class="groups-action-grid">
+
+            <!-- Tạo nhóm -->
+            <section class="dashboard-card groups-action-card">
+                <div class="groups-card-heading">
+                    <div class="groups-card-icon create-group-icon">
+                        <svg
+                            viewBox="0 0 24 24"
+                            width="26"
+                            height="26"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M12 5V19M5 12H19"
+                                stroke="#285B96"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                            />
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h2>Tạo nhóm mới</h2>
+                        <p>Bắt đầu một nhóm học tập của riêng bạn.</p>
+                    </div>
+                </div>
+
+                <form id="createGroupForm">
+                    <label for="newGroupName">Tên nhóm</label>
+                    <input
+                        id="newGroupName"
+                        type="text"
+                        maxlength="80"
+                        placeholder="Ví dụ: Nhóm CNPM 1"
+                        required
+                    >
+
+                    <button type="submit">+ Tạo nhóm mới</button>
+                </form>
+
+                <p id="createGroupMessage" role="status"></p>
+            </section>
+
+            <!-- Tham gia nhóm -->
+            <section class="dashboard-card groups-action-card">
+                <div class="groups-card-heading">
+                    <div class="groups-card-icon join-group-icon">
+                        <svg
+                            viewBox="0 0 24 24"
+                            width="26"
+                            height="26"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M16 21V19C16 16.8 14.2 15 12 15H7C4.8 15 3 16.8 3 19V21"
+                                stroke="#285B96"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                            />
+                            <circle
+                                cx="9.5"
+                                cy="7"
+                                r="4"
+                                stroke="#285B96"
+                                stroke-width="1.8"
+                            />
+                            <path
+                                d="M19 8V14M16 11H22"
+                                stroke="#3975B9"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                            />
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h2>Tham gia nhóm</h2>
+                        <p>Kết nối với nhóm bằng mã được chia sẻ.</p>
+                    </div>
+                </div>
+
+                <form id="joinGroupForm">
+                    <label for="joinGroupCode">Mã nhóm</label>
+                    <input
+                        id="joinGroupCode"
+                        type="text"
+                        maxlength="12"
+                        placeholder="Nhập mã nhóm"
+                        required
+                    >
+
+                    <button type="submit">Tham gia nhóm</button>
+                </form>
+
+                <p id="joinGroupMessage" role="status"></p>
+            </section>
+
+        </div>
+
+        <!-- Danh sách nhóm -->
+        <section class="dashboard-card groups-list-card">
+            <div class="groups-list-heading">
+                <div>
+                    <span class="groups-eyebrow">TỔNG QUAN</span>
+                    <h2>Danh sách nhóm của tôi</h2>
+                    <p>
+                        Các nhóm bạn đã tạo hoặc tham gia sẽ hiển thị tại đây.
+                    </p>
+                </div>
+
+                <div class="groups-list-icon" aria-hidden="true">
+                    <svg
+                        viewBox="0 0 24 24"
+                        width="30"
+                        height="30"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <rect
+                            x="3"
+                            y="3"
+                            width="18"
+                            height="18"
+                            rx="5"
+                            stroke="#3975B9"
+                            stroke-width="1.8"
+                        />
+                        <path
+                            d="M8 8H16M8 12H16M8 16H13"
+                            stroke="#3975B9"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                        />
+                    </svg>
+                </div>
+            </div>
+
+            <div id="myGroupsList" class="my-groups-list">
+                Đang tải danh sách nhóm...
+            </div>
+        </section>
+
+        <footer class="groups-footer">
+            Quản lý bài tập nhóm · Cùng nhau học tập, cùng nhau 
+        </footer>
+
+    </main>
+
+    <script type="module" src="groups.js"></script>
+</body>
+</html>
