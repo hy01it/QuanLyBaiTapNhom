@@ -1093,13 +1093,59 @@ if (taskForm) {
                 assigneeEmail: selectedMember ? selectedMember.email : ""
             };
 
-            await addDoc(collection(db, "tasks"), taskData);
+            const taskRef = await addDoc(
+    collection(db, "tasks"),
+    taskData
+);
 
-            taskForm.reset();
+// Gửi email cho thành viên được giao
+let emailSent = false;
 
-            document.getElementById("taskMaxPeople").value = "1";
+if (assigneeUids.length > 0) {
+    try {
+        const token = await auth.currentUser.getIdToken();
 
-            alert("Đã tạo nhiệm vụ thành công!");
+        const response = await fetch(
+            "http://localhost:3000/api/task-created",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+
+                body: JSON.stringify({
+                    taskId: taskRef.id
+                })
+            }
+        );
+
+        const emailResult = await response.json();
+
+        emailSent =
+            response.ok &&
+            emailResult.success &&
+            emailResult.sent > 0;
+
+        if (!emailSent) {
+            console.error("Email chưa gửi được:", emailResult);
+        }
+
+    } catch (emailError) {
+        console.error("Lỗi kết nối gửi email:", emailError);
+    }
+}
+
+taskForm.reset();
+
+document.getElementById("taskMaxPeople").value = "1";
+
+if (emailSent) {
+    alert("Đã tạo nhiệm vụ và gửi email cho thành viên!");
+} else {
+    alert("Đã tạo nhiệm vụ thành công, nhưng email chưa gửi được hoặc chưa có người nhận.");
+}
 
         } catch (error) {
             console.error("Lỗi tạo nhiệm vụ:", error);
@@ -1340,11 +1386,37 @@ async function deleteTask(taskId) {
     if (!confirmed) return;
 
     try {
-        await deleteDoc(doc(db, "tasks", taskId));
+    // Gửi email thông báo trước khi xóa nhiệm vụ
+    try {
+        const token = await auth.currentUser.getIdToken();
 
-        alert("Đã xóa nhiệm vụ!");
+        const response = await fetch(
+            "http://localhost:3000/api/task-deleted",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    taskId: taskId
+                })
+            }
+        );
 
-    } catch (error) {
+        if (!response.ok) {
+            console.error("Không gửi được email thông báo xóa.");
+        }
+
+    } catch (emailError) {
+        console.error("Lỗi gửi email xóa nhiệm vụ:", emailError);
+    }
+
+    await deleteDoc(doc(db, "tasks", taskId));
+
+    alert("Đã xóa nhiệm vụ!");
+
+} catch (error) {
         console.error("Lỗi xóa nhiệm vụ:", error);
         alert("Không thể xóa nhiệm vụ. Hãy kiểm tra Firebase Rules.");
     }
@@ -1396,14 +1468,40 @@ async function editTask(taskId) {
     }
 
     try {
-        await updateDoc(doc(db, "tasks", taskId), {
-            name: newName.trim(),
-            dueDate: dateValue
-        });
+    await updateDoc(doc(db, "tasks", taskId), {
+        name: newName.trim(),
+        dueDate: dateValue
+    });
 
-        alert("Đã cập nhật nhiệm vụ!");
+    // Gửi email thông báo sau khi sửa nhiệm vụ
+    try {
+        const token = await auth.currentUser.getIdToken();
 
-    } catch (error) {
+        const response = await fetch(
+            "http://localhost:3000/api/task-updated",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    taskId: taskId
+                })
+            }
+        );
+
+        if (!response.ok) {
+            console.error("Không gửi được email thông báo sửa.");
+        }
+
+    } catch (emailError) {
+        console.error("Lỗi gửi email sửa nhiệm vụ:", emailError);
+    }
+
+    alert("Đã cập nhật nhiệm vụ!");
+
+} catch (error) {
         console.error("Lỗi sửa nhiệm vụ:", error);
         alert("Không thể sửa nhiệm vụ. Hãy kiểm tra Firebase Rules.");
     }
